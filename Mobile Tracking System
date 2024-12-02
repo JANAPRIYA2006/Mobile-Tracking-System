@@ -1,0 +1,99 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MobileTrackingSystem extends JFrame {
+
+    // Constructor to set up the GUI
+    public MobileTrackingSystem() {
+        setTitle("Mobile Tracking System (MTS)");
+        setSize(500, 400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Title label
+        JLabel titleLabel = new JLabel("Mobile Tracking System", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        add(titleLabel, BorderLayout.NORTH);
+
+        // Panel for inputs and buttons
+        JPanel centerPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+
+        JLabel deviceIDLabel = new JLabel("Device ID:");
+        JTextField deviceIDField = new JTextField();
+
+        JLabel locationLabel = new JLabel("Current Location:");
+        JTextField locationField = new JTextField();
+        locationField.setEditable(false);
+
+        JLabel timeLabel = new JLabel("Last Tracked Time:");
+        JTextField timeField = new JTextField();
+        timeField.setEditable(false);
+
+        centerPanel.add(deviceIDLabel);
+        centerPanel.add(deviceIDField);
+        centerPanel.add(locationLabel);
+        centerPanel.add(locationField);
+        centerPanel.add(timeLabel);
+        centerPanel.add(timeField);
+
+        add(centerPanel, BorderLayout.CENTER);
+
+        // Bottom panel for buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+
+        JButton locateButton = new JButton("Locate Device");
+        JButton secureButton = new JButton("Secure Device");
+        JButton resetButton = new JButton("Reset");
+
+        // Button actions
+        locateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String deviceID = deviceIDField.getText();
+                if (!deviceID.isEmpty()) {
+                    // Simulating data retrieval
+                    locationField.setText("Lat: 28.6139, Long: 77.2090"); // Example coordinates
+                    timeField.setText("2024-12-02 12:30 PM");
+                    JOptionPane.showMessageDialog(null, "Device located successfully!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid Device ID.");
+                }
+            }
+        });
+
+        secureButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String deviceID = deviceIDField.getText();
+                if (!deviceID.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Device data secured and locked remotely.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid Device ID.");
+                }
+            }
+        });
+
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deviceIDField.setText("");
+                locationField.setText("");
+                timeField.setText("");
+            }
+        });
+
+        buttonPanel.add(locateButton);
+        buttonPanel.add(secureButton);
+        buttonPanel.add(resetButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        setVisible(true);
+    }
+
+    // Main method to launch the application
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new MobileTrackingSystem());
+    }
+}
